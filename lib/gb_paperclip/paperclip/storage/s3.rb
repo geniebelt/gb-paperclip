@@ -17,7 +17,7 @@ module Paperclip
       # @return [String]
       def expiring_url_with_name(time = 3600, file_name = nil, style_name = default_style)
         if path(style_name)
-          base_options = { :expires_in => time, :secure => use_secure_protocol?(style_name) }
+          base_options = { :expires_in => time, :secure => s3_protocol(style_name) != 'http' }
           if file_name
             base_options[:response_content_disposition] = "attachment;filename=\"#{file_name}\";"
           end
