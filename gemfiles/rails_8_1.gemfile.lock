@@ -5,7 +5,7 @@ PATH
       kt-paperclip (>= 6.0)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     CFPropertyList (2.3.6)
     action_text-trix (2.1.17)
