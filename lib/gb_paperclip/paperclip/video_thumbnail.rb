@@ -108,8 +108,8 @@ module Paperclip
 
     def get_duration(file)
       begin
-        cmd = %Q[-loglevel quiet -of json -show_entries format=duration "#{File.expand_path(file.path)}" ]
-        result = Paperclip.run('ffprobe', cmd)
+        cmd = '-loglevel quiet -of json -show_entries format=duration :input_file'
+        result = Paperclip.run('ffprobe', cmd, input_file: File.expand_path(file.path))
         JSON.parse(result)['format']['duration']
       rescue Terrapin::CommandNotFoundError
         raise Paperclip::Errors::CommandNotFoundError.new('Could not run the `ffprobe` command. Please install ffmpeg')
