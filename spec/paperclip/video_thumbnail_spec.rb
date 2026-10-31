@@ -271,6 +271,19 @@ describe Paperclip::VideoThumbnail do
     end
   end
 
+  context 'A video whose path contains quotes' do
+    it 'reads the duration' do
+      Dir.mktmpdir do |dir|
+        path = File.join(dir, 'video "clip".3gp')
+        FileUtils.cp(fixture_file('1m.3gp'), path)
+        File.open(path, 'rb') do |file|
+          duration = Paperclip::VideoThumbnail.new(file).get_duration(file)
+          expect(duration.to_f).to be > 0
+        end
+      end
+    end
+  end
+
   context 'Attachment processing info' do
     before(:each) do
       @file       = File.new(fixture_file('7m.mov'), 'rb')
